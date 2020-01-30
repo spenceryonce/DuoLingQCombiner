@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function() {
+            var wordlistDiv = $('#wordlistDiv');
+            getWordListForUser();
+            function getWordListForUser() {
+                $.ajax({
+                        url: '/api/DuoWord/1398416',
+                        data: {
+                        }
+                    })
+                    .done(function(result) {
+                        $(wordlistDiv).text(result);
+                    });
+            }
+        });
+    </script>
+
+}
+
+<h1>Word Lists</h1>
+<div id="wordlistDiv">Before</div>
