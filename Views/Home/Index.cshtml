@@ -1,22 +1,30 @@
-﻿@{
+﻿@model DuoLingQCombiner.Models.WordList
+@{
     ViewData["Title"] = "Home Page";
 }
 
 @section scripts {
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var wordlistDiv = $('#wordlistDiv');
+            var wordListGenEmpty = $('#gen');
             getWordListForUser();
-            function getWordListForUser() {
+            generateDefaultWordListForDb();
+            function getWordListForUser()
+            {
                 $.ajax({
-                        url: '/api/DuoWord/1398416',
-                        data: {
-                        }
-                    })
-                    .done(function(result) {
-                        $(wordlistDiv).text(result);
-                    });
-
+                    url: '/api/DuoWord/1398416',
+                    data: {}
+                }).done(function (result) { $(wordlistDiv).text(result);});
+            }
+            function generateDefaultWordListForDb()
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/DuoWord/5',
+                    data:
+                    {}
+                }).done(function(result){$(wordListGenEmpty).text(result);});
             }
         });
     </script>
@@ -25,3 +33,4 @@
 
 <h1>Word Lists</h1>
 <div id="wordlistDiv">Before</div>
+<div id="gen"></div>
